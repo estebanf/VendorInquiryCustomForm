@@ -1,0 +1,113 @@
+<br />
+<div class=footer/>
+<div ng-if="object">
+  <div class="panel panel-header">
+    <div class="panel-heading ">
+      <h1>Get vendors quote for request # {{RequestId}}</h1>
+    </div>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="list-group">
+          <div class="list-group-item">
+            <h4 class="list-group-item-heading">Request ID</h4>
+            <p class="list-group-item-text">{{RequestId}}</p>
+          </div>
+          <div class="list-group-item">
+            <h4 class="list-group-item-heading">Customer ID</h4>
+            <p class="list-group-item-text">{{CustomerId}}</p>
+          </div>
+          <div class="list-group-item">
+            <h4 class="list-group-item-heading">Event datatime</h4>
+            <p class="list-group-item-text">{{EventDateTime}}</p>
+          </div>
+          <div class="list-group-item">
+            <h4 class="list-group-item-heading">Event duration</h4>
+            <p class="list-group-item-text">{{EventDuration}} hour(s)</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="list-group">
+          <div class="list-group-item">
+            <h4 class="list-group-item-heading">Event Type</h4>
+            <p class="list-group-item-text">{{EventType}}</p>
+          </div>
+          <div class="list-group-item">
+            <h4 class="list-group-item-heading">Event Location</h4>
+            <p class="list-group-item-text">{{Location}}</p>
+          </div>
+          <div class="list-group-item">
+            <h4 class="list-group-item-heading">Request type</h4>
+            <p class="list-group-item-text">{{RequestType}}</p>
+          </div>
+          <div class="list-group-item">
+            <h4 class="list-group-item-heading">Urgency</h4>
+            <p class="list-group-item-text">{{Urgency}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <form class="form-inline" ng-submit="addVendor()">
+          <table datatable="ng" dt-options="dtOptions" class="row-border hover table">
+            <thead>
+              <tr>
+                <th>
+                  <div class="form-group">
+                    <label>
+                      <input class="form-control" name="resource" ng-model="newVendor.resource" />
+                    </label>
+                  </div>
+                </th>
+                <th>
+                  <div class="form-group">
+                    <label>
+                      <input class="form-control" name="vendor" ng-model="newVendor.vendor" />
+                    </label>
+                  </div>
+                </th>
+                <th>
+                  <div class="form-group">
+                    <label>
+                      <input class="form-control" name="cost" ng-model="newVendor.cost" />
+                    </label>
+                  </div>
+                </th>
+                <th>
+                  <div class="form-group">
+                    <button type="submit" class="btn btn-success"><i class="fa fa-plus"></i></button>
+                    <button type="button" class="btn btn-info" ng-if="editing == true" ng-click="cancel()"><i class="fa fa-undo"></i></button>
+                  </div>
+                </th>
+              </tr>
+              <tr>
+                <th>Resource</th>
+                <th>Vendor</th>
+                <th>Cost</th>
+                <th></th>
+            </thead>
+            <tbody>
+              <tr ng-repeat="entry in vendors">
+                <td>{{ entry.resource }}</td>
+                <td>{{ entry.vendor }}</td>
+                <td>{{ entry.cost }}</td>
+                <td>
+                  <button type="button" ng-click="editVendor($index)" class="btn btn-warning"><i class="fa fa-edit"></i></button>
+                  <button type="button" ng-click="removeVendor($index)" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </form>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <button class="btn btn-primary pull-right" ng-click="complete()">Approve</button>
+      </div>
+    </div>
+  </div>
+</div>
