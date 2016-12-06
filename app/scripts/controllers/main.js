@@ -15,16 +15,30 @@ angular.module('vendorInquiryCustomFormApp')
       .withDOM('tr');
     $scope.data = {};
     $scope.newVendor = {};
-    // $scope.vendors = [];
     $scope.vendors = [];
     $scope.editing = false;
     $scope.editIndex = 0;
     everteam.getTask()
       .then(function(data){
-        // console.log(data);
         $scope.object = data['tms:getTaskResponse']['tms:task']['tms:input'];
-        delete $scope.object.ExternalVendorInquiry.Vendors;
-        console.log($scope.object);
+        if($scope.object.ExternalVendorInquiry.Vendors){
+          if(angular.isArray($scope.object.ExternalVendorInquiry.Vendors)){
+            $scope.vendors = $scope.object.ExternalVendorInquiry.Vendors.map(function(item){
+              return {
+                resource:item.Resource.$,
+                vendor:item.Vendor.$,
+                cost:item.Cost.$
+              };
+            });
+          }else {
+            $scope.vendors = [{
+              resource:$scope.object.ExternalVendorInquiry.Vendors.Resource.$,
+              vendor:$scope.object.ExternalVendorInquiry.Vendors.Vendor.$,
+              cost:$scope.object.ExternalVendorInquiry.Vendors.Cost.$,
+            }];
+          }
+          delete $scope.object.ExternalVendorInquiry.Vendors;
+        }
         $scope.RequestId = $scope.object.ExternalVendorInquiry.Request.RequestId.$;
         $scope.CustomerId = $scope.object.ExternalVendorInquiry.Request.Information.CustomerId.$;
         $scope.EventDateTime = $scope.object.ExternalVendorInquiry.Request.Information.EventDateTime.$;
