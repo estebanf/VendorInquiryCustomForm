@@ -47,7 +47,6 @@ angular.module('vendorInquiryCustomFormApp')
         $scope.Location = $scope.object.ExternalVendorInquiry.Request.Information.Location.$;
         $scope.RequestType = $scope.object.ExternalVendorInquiry.Request.Information.RequestType.$;
         $scope.Urgency = $scope.object.ExternalVendorInquiry.Request.Urgency.$;
-        // console.log($scope.object);
         $loadingOverlay.hide();
 
       });
@@ -106,10 +105,8 @@ angular.module('vendorInquiryCustomFormApp')
         };
       });
       $scope.object.ExternalVendorInquiry['BTS1:Vendors'] = vendors;
-      console.log($scope.object);
       everteam.completeTask($scope.object)
-        .then(function(data){
-          console.log(data);
+        .then(function(){
           $loadingOverlay.hide();
           $window.location.assign('/everteam/workflow/script/empty.jsp');
         });
